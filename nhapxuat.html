@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhập/Xuất Hàng</title>
+    <link rel="icon" href="./image/icon.jpg">
+    <link rel="stylesheet" type="text/css" href="./nhapxuat.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script>
+        function nhapHang1(dat, b) {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+
+            urlHere = urlHere + "api_key=0282OFCCUHSLEIFD&field1=" + dat;
+            request.open('GET', urlHere, true);
+            request.send();
+         
+        }
+        function nhapHang2(dat, b) {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+
+            urlHere = urlHere + "api_key=0282OFCCUHSLEIFD&field2=" + dat;
+            request.open('GET', urlHere, true);
+            request.send();
+        
+        }
+        function nhapHang3(dat, b) {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+
+            urlHere = urlHere + "api_key=0282OFCCUHSLEIFD&field3=" + dat;
+            request.open('GET', urlHere, true);
+            request.send();
+      
+        }
+        function nhapHang4(dat, b) {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+
+            urlHere = urlHere + "api_key=0282OFCCUHSLEIFD&field4=" + dat;
+            request.open('GET', urlHere, true);
+            request.send();
+       
+        }
+        function xuatHang1(dat, b) {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+            urlHere = urlHere + "api_key=0282OFCCUHSLEIFD&field5=" + dat;
+
+            if (parseInt(dat) <= tonKho1) {
+                request.open('GET', urlHere, true);
+                request.send();
+            } else {
+                alert("Không đủ hàng để xuất, hãy nhập thêm hàng!!");
+            }
+        
+        }
+        function xuatHang2(dat, b) {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+            urlHere = urlHere + "api_key=0282OFCCUHSLEIFD&field6=" + dat;
+
+            if (parseInt(dat) <= tonKho2) {
+                request.open('GET', urlHere, true);
+                request.send();
+            } else {
+                alert("Không đủ hàng để xuất, hãy nhập thêm hàng!!");
+            }
+         
+        }
+        function xuatHang3(dat, b) {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+            urlHere = urlHere + "api_key=0282OFCCUHSLEIFD&field7=" + dat;
+
+            if (parseInt(dat) <= tonKho3) {
+                request.open('GET', urlHere, true);
+                request.send();
+            } else {
+                alert("Không đủ hàng để xuất, hãy nhập thêm hàng!!");
+            }
+          
+        }
+        function xuatHang4(dat, b) {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+            urlHere = urlHere + "api_key=0282OFCCUHSLEIFD&field8=" + dat;
+
+            if (parseInt(dat) <= tonKho4) {
+                request.open('GET', urlHere, true);
+                request.send();
+            } else {
+                alert("Không đủ hàng để xuất, hãy nhập thêm hàng!!");
+            }
+            
+        }
+        function thongKe() {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+            urlHere = "https://api.thingspeak.com/channels/1736266/feeds.json";
+            request.open('GET', urlHere, true);
+            request.onload = function () {
+                if (request.status == 200) {
+                    var data = JSON.parse(request.responseText);
+                    var length = data.feeds.length;  
+                    data1 = new Array();
+                    data2 = new Array();
+                    data3 = new Array();
+                    data4 = new Array();
+                    data5 = new Array();
+                    data6 = new Array();
+                    data7 = new Array();
+                    data8 = new Array();
+                    for (i = 0; i < length; i++) {
+                        if (data.feeds[i].field1 != null) {
+                            data1.push(data.feeds[i].field1);
+                        }
+                        if (data.feeds[i].field2 != null) {
+                            data2.push(data.feeds[i].field2);
+                        }
+                        if (data.feeds[i].field3 != null) {
+                            data3.push(data.feeds[i].field3);
+                        }
+                        if (data.feeds[i].field4 != null) {
+                            data4.push(data.feeds[i].field4);
+                        }
+                        if (data.feeds[i].field5 != null) {
+                            data5.push(data.feeds[i].field5);
+                        }
+                        if (data.feeds[i].field6 != null) {
+                            data6.push(data.feeds[i].field6);
+                        }
+                        if (data.feeds[i].field7 != null) {
+                            data7.push(data.feeds[i].field7);
+                        }
+                        if (data.feeds[i].field8 != null) {
+                            data8.push(data.feeds[i].field8);
+                        }
+                    }
+                    tongNhap1 = 0; 
+                    tongNhap2 = 0;
+                    tongNhap3 = 0;
+                    tongNhap4 = 0;
+                    tongXuat1 = 0;
+                    tongXuat2 = 0;
+                    tongXuat3 = 0;
+                    tongXuat4 = 0;
+                    tongNhap = 0;
+                    tongXuat = 0;
+                    for (i = 0; i <  data1.length; i++) {
+                        tongNhap1 += parseInt( data1[i]);
+                    }
+                    for (i = 0; i <  data2.length; i++) {
+                        tongNhap2 += parseInt( data2[i]);
+                    }
+                    for (i = 0; i <  data3.length; i++) {
+                        tongNhap3 += parseInt( data3[i]);
+                    }
+                    for (i = 0; i <  data4.length; i++) {
+                        tongNhap4 += parseInt( data4[i]);
+                    }
+                    for (i = 0; i <  data5.length; i++) {
+                        tongXuat1 += parseInt( data5[i]);
+                    }
+                    for (i = 0; i <  data6.length; i++) {
+                        tongXuat2 += parseInt( data6[i]);
+                    }
+                    for (i = 0; i <  data7.length; i++) {
+                        tongXuat3 += parseInt( data7[i]);
+                    }
+                    for (i = 0; i <  data8.length; i++) {
+                        tongXuat4 += parseInt( data8[i]);
+                    }
+                    tonKho1 = tongNhap1 - tongXuat1;
+                    tonKho2 = tongNhap2 - tongXuat2;
+                    tonKho3 = tongNhap3 - tongXuat3;
+                    tonKho4 = tongNhap4 - tongXuat4;
+                    tonKho = tonKho1 + tonKho2 + tonKho3;
+                    tongNhap = tongNhap1 + tongNhap2 + tongNhap3 + tongNhap4;
+                    tongXuat= tongXuat1 + tongXuat2 + tongXuat3 + tongXuat4;
+                    document.getElementById("nhapsp1").innerHTML = tongNhap1;
+                    document.getElementById("nhapsp2").innerHTML = tongNhap2;
+                    document.getElementById("nhapsp3").innerHTML = tongNhap3;
+                    document.getElementById("nhapsp4").innerHTML = tongNhap4;
+                    document.getElementById("xuatsp1").innerHTML = tongXuat1;
+                    document.getElementById("xuatsp2").innerHTML = tongXuat2;
+                    document.getElementById("xuatsp3").innerHTML = tongXuat3;
+                    document.getElementById("xuatsp4").innerHTML = tongXuat4;
+                                      
+                    document.getElementById("tonkhosp1").innerHTML = tonKho1;
+                    document.getElementById("tonkhosp2").innerHTML = tonKho2;
+                    document.getElementById("tonkhosp3").innerHTML = tonKho3;
+                    document.getElementById("tonkhosp4").innerHTML = tonKho4;
+                    document.getElementById("tongnhap").innerHTML = tongNhap;
+                    document.getElementById("tongxuat").innerHTML = tongXuat;
+                    document.getElementById("tonkho").innerHTML = tonKho;
+                    
+                } else {
+
+                }
+            };
+            request.send();
+
+            //request.open('GET', urlHere, true);
+            //request.send();
+        }
+    </script>
+</head>
+<body>               
+<div class="background"></div>   
+<div class="header">
+    <div class="tittle">
+            <img src="./image/logo.png">
+         CAN THO UNIVERSITY
+    </div>
+    <ul>
+        <li class="item">
+            <a href="contact.html">Liên hệ</a>
+        </li>
+         <li class="item">
+            <a href="">Nội dung đồ án</a>
+            <div class='dropdown'>
+                <button onclick='hamDropdown()' class='nut_dropdown'><i class="fas fa-caret-down"></i></button>
+                <div class='noidung_dropdown'>    
+                    <a href="./hanghoa.html">Loại hàng</a>
+                    <a href="./nhapxuat.html">Nhập/xuất hàng</a>
+                    <a href="./thongke.html">Thống kê</a>
+                </div>
+            </div>
+        </li>
+        <li class="item">
+            <a href="./member.html">Thành viên</a>
+        </li>
+        <li class="item">
+            <a href="./index.html">Giới thiệu</a>
+        </li>
+        
+    </ul>           
+</div>  <br> <br>
+<div id="loader">
+    <div class="circle">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+    </div>
+</div>
+<div class="container">  
+    <div class="main">
+        <div class="frame row">
+            <div class="content col-md-6">
+                <h3>Nhập hàng</h3>   
+                                        
+                    <div class="frame row">                                    
+                        <p>Áo thun tay lỡ Donut: 
+                            <input type="text" id="nhaphang1">
+                            <input class="btn btn-primary"  type="button" value="Nhập" onclick="nhapHang1(nhaphang1.value,thongKe)">
+                        </p>
+                        <p>Áo thun tay lỡ Thỏ nâu: 
+                            <input type="text" id="nhaphang2">
+                            <input class="btn btn-primary"  type="button" value="Nhập" onclick="nhapHang2(nhaphang2.value,thongKe)">
+                        </p>
+                        <p>Áo thun tay lỡ màu đen: 
+                            <input type="text" id="nhaphang3">
+                            <input class="btn btn-primary"  type="button" value="Nhập" onclick="nhapHang3(nhaphang3.value,thongKe)">
+                        </p>
+                        <p>Áo thun tay lỡ màu trắng: 
+                            <input type="text" id="nhaphang4">
+                            <input class="btn btn-primary"  type="button" value="Nhập" onclick="nhapHang4(nhaphang4.value,thongKe)">
+                        </p>
+                       
+                                        
+                </div>
+                            
+            </div> 
+            <div class="content col-md-6">
+                <h3>Xuất hàng</h3>   
+                                        
+                    <div class="frame row">                                    
+                        <p>Áo thun tay lỡ Donut: 
+                            <input type="text" id="xuathang1">
+                            <input class="btn btn-primary"  type="button" value="Xuất" onclick="xuatHang1(xuathang1.value,thongKe)">
+                        </p>
+                        <p>Áo thun tay lỡ Thỏ nâu: 
+                            <input type="text" id="xuathang2">
+                            <input class="btn btn-primary"  type="button" value="Xuất" onclick="xuatHang2(xuathang2.value,thongKe)">
+                        </p>
+                        <p>Áo thun tay lỡ màu đen: 
+                            <input type="text" id="xuathang3">
+                            <input class="btn btn-primary"  type="button" value="Xuất" onclick="xuatHang3(xuathang3.value,thongKe)">
+                        </p>
+                        <p>Áo thun tay lỡ màu trắng: 
+                            <input type="text" id="xuathang4">
+                            <input class="btn btn-primary"  type="button" value="Xuất" onclick="xuatHang4(xuathang4.value,thongKe)">
+                        </p>
+                        
+                                        
+                    </div>                           
+            </div> 
+            <div class="hienthi">
+                <table>
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th >Tổng sản phẩm nhập</th>
+                        <th >Tổng sản phẩm xuất</th>
+                        <th >Tồn kho</th>
+                    </tr>
+                    <tr>
+                        <td>Áo thun Donut</td>
+                        <td id="nhapsp1"></td>
+                        <td id="xuatsp1"></td>
+                        <td id="tonkhosp1"></td>
+                    </tr>
+                    <tr>
+                        <td>Áo thun Thỏ nâu</td>
+                        <td id="nhapsp2"></td>
+                        <td id="xuatsp2"></td>
+                        <td id="tonkhosp2"></td>
+                    </tr>
+                    <tr>   
+                        <td>Áo thun màu đen</td>
+                        <td id="nhapsp3"></td>
+                        <td id="xuatsp3"></td>
+                        <td id="tonkhosp3"></td>
+                    </tr>
+                    <tr>    
+                        <td>Áo thun màu trắng</td>
+                        <td id="nhapsp4"></td>
+                        <td id="xuatsp4"></td>
+                        <td id="tonkhosp4"></td>
+                    </tr>
+                   
+                    <tr style="font-weight: bold;">
+                        <td>Tổng</td>   
+                        <td id="tongnhap"></td>
+                        <td id="tongxuat"></td>
+                        <td id="tonkho"></td>
+                    </tr>
+                </table> <br>
+                
+                <form name="form2">
+                    <input class="btn btn-danger" type="button" value="Kiểm tra" onclick="thongKe()">
+                </form>
+            </div>
+        </div><br>
+    </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        function hamDropdown() {
+            document.querySelector(".noidung_dropdown").classList.toggle("hienThi");
+        }
+        var loader = function() {
+            setTimeout(function() {
+                $('#loader').css({ 'opacity': 0, 'visibility':'hidden' });
+            }, 1000);
+        };
+        $(function(){
+            loader();
+        });
+    </script>
+</body>
+</html>

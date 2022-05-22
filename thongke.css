@@ -1,0 +1,81 @@
+@font-face{
+    font-family: basic;
+    src: url(./font/Bandon.ttf); }
+*{
+	font-family: basic;
+
+}
+.tittle{
+	font-size:30px;
+	float:left;
+}
+.tittle img{
+	width:50px;
+	background-color: none;
+}
+.header{
+  padding:10px;
+  height: 70px;
+  box-shadow: 0px 0px 12px rgba(0,0,0,0.3);
+  font-size:20px;
+  width:100%;
+}
+.header li{
+	float:right;
+	width:170px;
+	font-size:20px;
+	text-align: center;
+	background: rbga(0, 0, 0, 0.5);
+}
+.header ul{
+	list-style-type: none;
+	color:black;
+}
+.item a{
+	text-decoration: none;
+	color:black;
+}
+.main{
+	margin-top:50px;
+}
+.nut_dropdown {
+    background: none;
+    border: none;
+  }
+  
+  /* Thiết lập vị trí cho thẻ div với class dropdown*/
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Nội dung Dropdown */
+  .noidung_dropdown {
+    /*Ẩn nội dụng các đường dẫn*/
+    display: none;
+    position: absolute;
+    background-color:rgba(3, 3, 3, 0.3);
+    min-width: 170px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-left:-150px;
+  }
+  
+  /* Thiết kế style cho các đường dẫn tronng Dropdown */
+  .noidung_dropdown a {
+    color:white;
+    padding: 5px;
+    text-decoration: none;
+    display: block;
+    font-size:17px;
+    text-align: center;
+    /* padding-left: 15px; */
+  }
+  .noidung_dropdown a:hover{
+    background-color: rgb(246, 235, 235, 0.5);
+    color:black;
+  }
+  .hienThi{
+    display:block;
+  }
+ 

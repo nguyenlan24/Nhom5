@@ -1,199 +1,479 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Thong ke</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-</script> 
-
-<script>
-  function thongKe()
-    {
-        var request = new XMLHttpRequest();
-        var urlHere = "https://api.thingspeak.com/update?";
-        urlHere = "https://api.thingspeak.com/channels/1421792/feeds.json";
-        request.open('GET', urlHere, true);
-        request.onload = function() {
-            if (request.status == 200) {
-                var data = JSON.parse(request.responseText);
-                //console.log(data);
-                var length = data.feeds.length;  //kich thuoc du lieu
-                //loc bo cac phan tu null
-                dataNhap = new Array();
-                dataXuat = new Array();
-                for(i=0;i<length;i++){
-                  if (data.feeds[i].field4 != null){
-                    dataNhap.push(data.feeds[i].field4);
-                  }
-                  if (data.feeds[i].field5 != null){
-                    dataXuat.push(data.feeds[i].field5);
-                  }
-                }
-                // hiển thị số lượng tồn kho
-                tongXuat=0, tongNhap=0, tonKho=0;
-                //tính tổng xuất
-                for(i=0;i<dataXuat.length;i++){
-                  tongXuat += parseInt(dataXuat[i]);
-                }
-                //tính tổng nhập
-                for(i=0;i<dataNhap.length;i++){
-                  tongNhap += parseInt(dataNhap[i]);
-                }
-                //tính tồn kho
-                tonKho = tongNhap - tongXuat;
-                document.getElementById("thongke").innerHTML = "Tổng số sản phẩm đang trong kho:"+tonKho;
-                //Ve bieu đồ nhập xuất
-                var yNhap = new Array();
-                var yXuat = new Array();
-                var xNhap = new Array();
-                var xXuat = new Array();
-                for(var i=0;i<length;i++){
-                  if (data.feeds[i].field4 != null){
-                    yNhap.push(data.feeds[i].field4);
-                    xNhap.push(data.feeds[i].created_at);
-                  }
-                  if (data.feeds[i].field5 != null){
-                    yXuat.push(data.feeds[i].field5);
-                    xXuat.push(data.feeds[i].created_at);
-                  }
-                }
-                //bieu đồ
-                new Chart("chartNhap", {
-                    type: "bar",
-                    data: {
-                        labels: xNhap,
-                        datasets: [
-                        {
-                            fill: false,
-                            backgroundColor: "red",
-                            label: "Quá trình nhập hàng",
-                            data: yNhap
-                        }, 
-                        ]
-                    },
-                    options: {
-                        plugins:{
-                            legend: {
-                              display: true,
-                            }
-                        },
-                        scales: {
-                            yAxes: [{
-                              display: true,
-                              ticks: {
-                                beginAtZero: true,
-                                //max: (yNhap.max)
-                              }
-                            }]
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thống kê</title>
+    <link rel="icon" href="./image/icon.jpg">
+    <link rel="stylesheet" type="text/css" href="./thongke.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+         function thongKe() {
+            var request = new XMLHttpRequest();
+            var urlHere = "https://api.thingspeak.com/update?";
+            urlHere = "https://api.thingspeak.com/channels/1736266/feeds.json";
+            request.open('GET', urlHere, true);
+            request.onload = function () {
+                if (request.status == 200) {
+                    var data = JSON.parse(request.responseText);
+                    var length = data.feeds.length;  
+                    data1 = new Array();
+                    data2 = new Array();
+                    data3 = new Array();
+                    data4 = new Array();
+                    data5 = new Array();
+                    data6 = new Array();
+                    data7 = new Array();
+                    data8 = new Array();
+                    for (i = 0; i < length; i++) {
+                        if (data.feeds[i].field1 != null) {
+                            data1.push(data.feeds[i].field1);
+                        }
+                        if (data.feeds[i].field2 != null) {
+                            data2.push(data.feeds[i].field2);
+                        }
+                        if (data.feeds[i].field3 != null) {
+                            data3.push(data.feeds[i].field3);
+                        }
+                        if (data.feeds[i].field4 != null) {
+                            data4.push(data.feeds[i].field4);
+                        }
+                        if (data.feeds[i].field5 != null) {
+                            data5.push(data.feeds[i].field5);
+                        }
+                        if (data.feeds[i].field6 != null) {
+                            data6.push(data.feeds[i].field6);
+                        }
+                        if (data.feeds[i].field7 != null) {
+                            data7.push(data.feeds[i].field7);
+                        }
+                        if (data.feeds[i].field8 != null) {
+                            data8.push(data.feeds[i].field8);
                         }
                     }
-                });
-                new Chart("chartXuat", {
-                    type: "bar",
-                    data: {
-                        labels: xXuat,
-                        datasets: [
-                        {
-                            fill: false,
-                            backgroundColor: "blue",
-                            label: "Quá trình xuất hàng",
-                            data: yXuat
-                        }, 
-                        ]
-                    },
-                    options: {
-                        plugins:{
-                            legend: {
-                                display: true,
-                            }
+                    tongNhap1 = 0; 
+                    tongNhap2 = 0;
+                    tongNhap3 = 0;
+                    tongNhap4 = 0;
+                    tongXuat1 = 0;
+                    tongXuat2 = 0;
+                    tongXuat3 = 0;
+                    tongXuat4 = 0;
+                    tongNhap = 0;
+                    tongXuat = 0;
+                    for (i = 0; i <  data1.length; i++) {
+                        tongNhap1 += parseInt( data1[i]);
+                    }
+                    for (i = 0; i <  data2.length; i++) {
+                        tongNhap2 += parseInt( data2[i]);
+                    }
+                    for (i = 0; i <  data3.length; i++) {
+                        tongNhap3 += parseInt( data3[i]);
+                    }
+                    for (i = 0; i <  data4.length; i++) {
+                        tongNhap4 += parseInt( data4[i]);
+                    }
+                    for (i = 0; i <  data5.length; i++) {
+                        tongXuat1 += parseInt( data5[i]);
+                    }
+                    for (i = 0; i <  data6.length; i++) {
+                        tongXuat2 += parseInt( data6[i]);
+                    }
+                    for (i = 0; i <  data7.length; i++) {
+                        tongXuat3 += parseInt( data7[i]);
+                    }
+                    for (i = 0; i <  data8.length; i++) {
+                        tongXuat4 += parseInt( data8[i]);
+                    }
+                    tonKho1 = tongNhap1 - tongXuat1;
+                    tonKho2 = tongNhap2 - tongXuat2;
+                    tonKho3 = tongNhap3 - tongXuat3;
+                    tonKho4 = tongNhap4 - tongXuat4;
+                    tonKho = tonKho1 + tonKho2 + tonKho3;
+                    tongNhap = tongNhap1 + tongNhap2 + tongNhap3 + tongNhap4;
+                    tongXuat= tongXuat1 + tongXuat2 + tongXuat3 + tongXuat4;
+                     //Ve bieu đồ nhập xuất
+                    var yNhapSP1 = new Array();
+                    var yXuatSP1 = new Array();
+                    var xNgayNhapSP1 = new Array();
+                    var xNgayXuatSP1 = new Array();
+                    var yNhapSP2 = new Array();
+                    var yXuatSP2 = new Array();
+                    var xNgayNhapSP2 = new Array();
+                    var xNgayXuatSP2 = new Array();
+                    var yNhapSP3 = new Array();
+                    var yXuatSP3 = new Array();
+                    var xNgayNhapSP3 = new Array();
+                    var xNgayXuatSP3 = new Array();
+                    var yNhapSP4 = new Array();
+                    var yXuatSP4 = new Array();
+                    var xNgayNhapSP4 = new Array();
+                    var xNgayXuatSP4 = new Array();
+                    for (var i = 0; i < length; i++) {
+                        if (data.feeds[i].field1 != null) {
+                            yNhapSP1.push(data.feeds[i].field1);
+                            xNgayNhapSP1.push(data.feeds[i].created_at);
+                        }
+                        if (data.feeds[i].field2 != null) {
+                            yNhapSP2.push(data.feeds[i].field2);
+                            xNgayNhapSP2.push(data.feeds[i].created_at);
+                        }
+                        if (data.feeds[i].field3 != null) {
+                            yNhapSP3.push(data.feeds[i].field3);
+                            xNgayNhapSP3.push(data.feeds[i].created_at);
+                        }
+                        if (data.feeds[i].field4 != null) {
+                            yNhapSP4.push(data.feeds[i].field4);
+                            xNgayNhapSP4.push(data.feeds[i].created_at);
+                        }
+                        if (data.feeds[i].field5 != null) {
+                            yXuatSP1.push(data.feeds[i].field5);
+                            xNgayXuatSP1.push(data.feeds[i].created_at);
+                        }
+                        if (data.feeds[i].field6 != null) {
+                            yXuatSP2.push(data.feeds[i].field6);
+                            xNgayXuatSP2.push(data.feeds[i].created_at);
+                        }
+                        if (data.feeds[i].field7 != null) {
+                            yXuatSP3.push(data.feeds[i].field7);
+                            xNgayXuatSP3.push(data.feeds[i].created_at);
+                        }
+                        if (data.feeds[i].field8 != null) {
+                            yXuatSP4.push(data.feeds[i].field8);
+                            xNgayXuatSP4.push(data.feeds[i].created_at);
+                        }
+                    }
+                    //bieu đồ nhap
+                    new Chart("chartNhapSP1", {
+                        type: "bar",
+                        data: {
+                            labels: xNgayNhapSP1,
+                            datasets: [
+                                {
+                                    fill: false,
+                                    backgroundColor: "rgb(213, 243, 165)",
+                                    label: "Áo thun tay lỡ Donut",
+                                    data: yNhapSP1
+                                },
+
+                            ]
                         },
-                        scales: {
-                            yAxes: [{
-                                display: true,
-                                ticks: {
-                                    beginAtZero: true,
-                                    //max: (yXuat.max)
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
                                 }
-                            }]
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                      
+                                    }
+                                }]
+                            }
                         }
-                    }
-                });
+                    });
+                    new Chart("chartNhapSP2", {
+                        type: "bar",
+                        data: {
+                            labels: xNgayNhapSP2,
+                            datasets: [
+                                {
+                                    fill: false,
+                                    backgroundColor: "rgb(243, 229, 165)",
+                                    label: "Áo thun tay lỡ Thỏ nâu",
+                                    data: yNhapSP2
+                                },
 
-            } else {
-            // We reached our target server, but it returned an error
-            }
-        };
-        request.send();
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,                              
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    new Chart("chartNhapSP3", {
+                        type: "bar",
+                        data: {
+                            labels: xNgayNhapSP3,
+                            datasets: [
+                                {
+                                    fill: false,
+                                    backgroundColor: "rgb(243, 165, 165)",
+                                    label: "Áo thun tay lỡ màu đen",
+                                    data: yNhapSP3
+                                },
 
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    new Chart("chartNhapSP4", {
+                        type: "bar",
+                        data: {
+                            labels: xNgayNhapSP4,
+                            datasets: [
+                                {
+                                    fill: false,
+                                    backgroundColor: "rgb(165, 243, 198)",
+                                    label: "Áo thun tay lỡ màu trắng",
+                                    data: yNhapSP3
+                                },
+
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                       
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    //bieu do xuat
+                    new Chart("chartXuat1", {
+                        type: "bar",
+                        data: {
+                            labels: xNgayXuatSP1,
+                            datasets: [
+                                {
+                                    fill: false,
+                                    backgroundColor: "rgb(213, 243, 165)",
+                                    label: "Áo thun tay lỡ Donut",
+                                    data: yXuatSP1
+                                },
+
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                      
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    new Chart("chartXuat2", {
+                        type: "bar",
+                        data: {
+                            labels: xNgayXuatSP2,
+                            datasets: [
+                                {
+                                    fill: false,
+                                    backgroundColor: "rgb(243, 229, 165)",
+                                    label: "Áo thun tay lỡ Thỏ nâu",
+                                    data: yXuatSP2
+                                },
+
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,                              
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    new Chart("chartXuat3", {
+                        type: "bar",
+                        data: {
+                            labels: xNgayXuatSP3,
+                            datasets: [
+                                {
+                                    fill: false,
+                                    backgroundColor: "rgb(243, 165, 165)",
+                                    label: "Áo thun tay lỡ màu đen",
+                                    data: yXuatSP3
+                                },
+
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    new Chart("chartXuat4", {
+                        type: "bar",
+                        data: {
+                            labels: xNgayXuatSP4,
+                            datasets: [
+                                {
+                                    fill: false,
+                                    backgroundColor: "rgb(165, 243, 198)",
+                                    label: "Áo thun tay lỡ màu trắng",
+                                    data: yXuatSP4
+                                },
+
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                }
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                       
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }else {
+                 
+                }
+            };
+            request.send();
+
+
+           
+        }
+            
         
-        //request.open('GET', urlHere, true);
-        //request.send();
-    }
-</script> 
-<style>
-* {
-  box-sizing: border-box;
-}
+    </script>
+   
 
-body {
-  margin: 200;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Style the side navigation */
-.sidenav {
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 100px;
-  background-color: #111;
-  overflow-x: hidden;
-}
-
-
-/* Side navigation links */
-.sidenav a {
-  color: white;
-  padding: 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color on hover */
-.sidenav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Style the content */
-.content {
-  margin-left: 300px;
-  padding-left: 20px;
-}
-</style>
 </head>
 <body onload="thongKe()">
+    <div class="header">
+        <div class="tittle">
+            <img src="./image/logo.png">
+            CAN THO UNIVERSITY
+        </div> 
 
-<div class="sidenav">
-  <a href="https://vankhanh-ctu.github.io/website/">Trang chủ</a>
-  <a href="https://vankhanh-ctu.github.io/website/thingspeak-sample.html">Nhập xuất hàng</a>
-  <a href="https://vankhanh-ctu.github.io/website/thingspeak-thongke.html">Thống kê</a>
-</div>
+        <ul>
+             <li class="item">
+                <a href="contact.html">Liên hệ</a>
+            </li>
+             <li class="item">
+                <a href="">Nội dung đồ án</a>
+                <div class='dropdown'>
+                    <button onclick='hamDropdown()' class='nut_dropdown'><i class="fas fa-caret-down"></i></button>
+                    <div class='noidung_dropdown'>    
+                        <a href="./hanghoa.html">Loại hàng</a>                       
+                        <a href="./nhapxuat.html">Nhập/xuất hàng</a>
+                        <a href="./thongke.html">Thống kê</a>                   
+                    </div>
+                </div>
+            </li>
+            <li class="item">
+                <a href="./member.html">Thành viên</a>
+            </li>
+            <li class="item">
+                <a href="./index.html">Giới thiệu</a>
+            </li>
+        </ul>
+    </div> <br>
 
-<div class="content">
-  <p>Quá trình nhập hàng</p>
-  <form name="form2">
-        <input type = "button" value = "Kiểm tra" onclick = "thongKe()">
-  </form>
-  <p id="thongke"> </p>
-  <canvas id="chartNhap" style="width:100%;max-width:700px"></canvas>
-  <p>Quá trình xuất hàng</p>
-  <canvas id="chartXuat" style="width:100%;max-width:700px"></canvas>
-</div>
+    <div class="container">
+      <div class="main">
+        <h2>Thống kê nhập hàng</h2><br>
+        <p id="thongke"> </p>
+            <div class="row">
+                <canvas class="col-4" id="chartNhapSP1" style="max-width:45%; height: 100px;"></canvas>
+                <canvas class="col-4" id="chartNhapSP2" style="max-width:45%; height: 100px;"></canvas>
+            </div>
+            <div class="row">
+                <canvas class="col-4" id="chartNhapSP3" style="max-width:45%; height: 100px;"></canvas>
+                <canvas class="col-4" id="chartNhapSP4" style="max-width:45%; height: 100px;"></canvas>
+            </div><br>
+            <h2>Thống kê xuất hàng</h2> <br>
+            <div class="row">
+                <canvas class="col-4" id="chartXuat1" style="max-width:45%; height: 100px;"></canvas>
+                <canvas class="col-4" id="chartXuat2" style="max-width:45%; height: 100px;"></canvas>
+            </div>
+            <div class="row">
+                <canvas class="col-4" id="chartXuat3" style="max-width:45%; height: 100px;"></canvas>
+                <canvas class="col-4" id="chartXuat4" style="max-width:45%; height: 100px;"></canvas>
+            </div>
+      </div>
+    </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        function hamDropdown() {
+            document.querySelector(".noidung_dropdown").classList.toggle("hienThi");
+        }
+       
+
+    </script>
 </body>
 </html>
